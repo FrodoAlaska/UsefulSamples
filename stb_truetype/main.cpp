@@ -280,6 +280,34 @@ int main() {
   
   kern *= (int)scale_factor;
 
+  /// There is also another way of retrieve the kern of each glyph. 
+  /// Instead of querying the font to get the kern between two specific glyphs, 
+  /// you can retrieve something called a "kern table", which is an array 
+  /// of `stbtt_kerningentry`s.
+  ///
+  /// Each entry is structure like this: 
+  /// 
+  /// struct stbtt_kerningentry {
+  ///   int glyph1; 
+  ///   int glyph2; 
+  ///
+  ///   int advance;
+  /// };
+  ///
+  /// You'll have to retrieve the length of this table first, though. And you 
+  /// can easily do that by using the `stbtt_GetKerningTableLength` function. 
+  ///
+  /// You have to get the length of the table since you'll have to allocate it yourself. 
+  /// Then, you can give the newly-allocated kerning table to the `stbtt_GetKerningTable` 
+  /// function with the length of the kerning table that you retrieved.
+  ///
+  /// This is much more practical than querying the font every frame about the kern between two glyphs. 
+
+  int kern_table_length = stbtt_GetKerningTableLength(info);
+
+  stbtt_kerningentry* kern_table = (stbtt_kerningentry*)malloc(sizeof(stbtt_kerningentry) * kern_table_length);
+  stbtt_GetKerningTable(info, kern_table);
+
   /// Since stb_truetype allocates the bitmap internally, we'll need to de-allocate 
   /// the bitmap as well using the function below. 
   ///
