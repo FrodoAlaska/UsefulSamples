@@ -2,6 +2,10 @@
 
 #include <cstdio>
 
+/// You can find the amazing stb_image library at the link below: 
+///
+/// https://github.com/nothings/stb
+
 int main() {
   /// This function, as the name implies, will load in the pixels of an image 
   /// given the file name. It also has a few out parameters. 
