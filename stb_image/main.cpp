@@ -1,8 +1,9 @@
+#define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
 
 #include <cstdio>
 
-/// You can find the amazing stb_image library at the link below: 
+/// You can find the stb_image library at the link below: 
 ///
 /// https://github.com/nothings/stb
 
