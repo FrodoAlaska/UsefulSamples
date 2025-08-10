@@ -1,0 +1,49 @@
+# Ignore build directories
+build/
+build-debug/
+build-release/
+bin/
+obj/
+out/
+dist/
+Debug/
+Release/
+res/
+
+# Ignore compiled object files and binaries
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+*.a
+*.lib
+
+# Ignore temporary files
+*.log
+*.tmp
+*.cache
+*.bak
+
+# Ignore CMake and Makefile artifacts
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+
+# Ignore Visual Studio-specific files
+*.vcxproj*
+*.sln
+*.ncb
+*.suo
+*.user
+*.pdb
+*.ipch
+*.tlog
+*.lastbuildstate
+
+# Ignore package manager files (optional)
+node_modules/
+.vscode/
+.idea/
