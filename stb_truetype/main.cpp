@@ -82,7 +82,7 @@ int main() {
   ///
   /// As you can see, the function takes in the font info struct and then the scaling factor in pixels.
 
-  float scale_factor = stbtt_ScaleForPixelHeight(info, 256.0f);
+  float scale_factor = stbtt_ScaleForPixelHeight(&info, 256.0f);
 
   /// This function will get the vertical metrics and/or information about the given font. 
   /// This is the information that gets computed between each row of the font. 
@@ -95,7 +95,7 @@ int main() {
   /// row's ascent.
 
   int ascent, descent, line_gap;
-  stbtt_GetFontVMetrics(info, &ascent, &descent, &line_gap);
+  stbtt_GetFontVMetrics(&info, &ascent, &descent, &line_gap);
 
   /// Bringing our newly filled variables into a "scaled" coordinate space.
   /// If we don't do this, the variables will have a _huge_ value that will 
@@ -130,7 +130,7 @@ int main() {
   /// The function will also return a `0` if the codepoint is not found in the font. Make sure to 
   /// check for that, since you don't want to create a texture of a non-existent character.
 
-  int glyph_index = stbtt_FindGlyphIndex(info, 'A');
+  int glyph_index = stbtt_FindGlyphIndex(&info, 'A');
 
   /// A single glyph in the font is just a greyscale texture that has a bunch information 
   /// describing its width, height, and so on. Keep in mind that _every_ glyph has _only_ 
@@ -154,7 +154,7 @@ int main() {
   /// https://learnopengl.com/img/in-practice/glyph.png
   
   int width, height, offset_x, offset_y; 
-  unsigned char* glyph_bitmap = stbtt_GetGlyphBitmap(info,         // Font info
+  unsigned char* glyph_bitmap = stbtt_GetGlyphBitmap(&info,        // Font info
                                                      0,            // Scale width 
                                                      scale_factor, // Scale height
                                                      glyph_index,  // Glyph index
@@ -184,7 +184,7 @@ int main() {
   /// factor for both the width and the height
 
   int left, top, right, bottom; 
-  stbtt_GetGlyphBitmapBox(info,         // Font info
+  stbtt_GetGlyphBitmapBox(&info,        // Font info
                           glyph_index,  // Glyph index
                           0,            // Scale width
                           scale_factor, // Scale height
@@ -219,7 +219,7 @@ int main() {
 
   unsigned char* out_bitmap = malloc(buff_size);
 
-  stbtt_MakeGlyphBitmap(info,         // Font info
+  stbtt_MakeGlyphBitmap(&info,        // Font info
                         out_bitmap,   // The output buffer
                         buff_width,   // Width of the bitmap
                         buff_height,  // Height of the bitmap
@@ -250,7 +250,7 @@ int main() {
   /// however, since you don't know which fonts will be used.
   
   int advance, left_side_bearing;
-  stbtt_GetGlyphHMetrics(info, glyph_index, &advance, &left_side_bearing);
+  stbtt_GetGlyphHMetrics(&info, glyph_index, &advance, &left_side_bearing);
 
   /// Since the `stbtt_GetGlyphHMetrics` function does not take in the scaling factor, 
   /// we will have to bring the output variables into the "scaled" coordinates.
@@ -272,8 +272,8 @@ int main() {
   /// You can also use the codepoint version of this function, `stbtt_GetCodepointKernAdvance` 
   /// which takes in the actual codepoint values instead of a set of indices.
 
-  int next_glyph_index = stbtt_FindGlyphIndex(info, 's');
-  stbtt_GetGlyphKernAdvance(info, glyph_index, next_glyph_index);
+  int next_glyph_index = stbtt_FindGlyphIndex(&info, 's');
+  stbtt_GetGlyphKernAdvance(&info, glyph_index, next_glyph_index);
 
   /// Once again, the kern is returned as in unscaled coordinates so we have 
   /// to bring it to scaled coordinates. 
@@ -303,10 +303,10 @@ int main() {
   ///
   /// This is much more practical than querying the font every frame about the kern between two glyphs. 
 
-  int kern_table_length = stbtt_GetKerningTableLength(info);
+  int kern_table_length = stbtt_GetKerningTableLength(&info);
 
   stbtt_kerningentry* kern_table = (stbtt_kerningentry*)malloc(sizeof(stbtt_kerningentry) * kern_table_length);
-  stbtt_GetKerningTable(info, kern_table);
+  stbtt_GetKerningTable(&info, kern_table);
 
   /// Since stb_truetype allocates the bitmap internally, we'll need to de-allocate 
   /// the bitmap as well using the function below. 
