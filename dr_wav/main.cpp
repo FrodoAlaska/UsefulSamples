@@ -20,9 +20,13 @@ int main() {
   ///
   /// The function can return an error, however, so make sure to check 
   /// that when calling it. 
+  ///
+  /// The last parameter of the function takes in an allocation callback that  
+  /// you can provide. Once given, dr_wav will use your own allocater to allocate 
+  /// any internal memory. For now, however, you can leave it as `nullptr`.
 
   drwav wav; 
-  if(!drwav_init_file(&wav, "path/to/audio.wav", NULL)) {
+  if(!drwav_init_file(&wav, "path/to/audio.wav", nullptr)) {
     printf("ERROR: Could not load WAV file!\n");
     return -1;
   }
@@ -84,11 +88,13 @@ int main() {
   /// This kind of operation is very useful for when you just want to read the whole entire PCM frames in one 
   /// go and save it off to your own format, for example. Or, perhaps, you know that the WAV file is small 
   /// and you can read it in one go.
+  ///
+  /// And, much like the `drwav_init_file` function, the last parameter here is for the allocater.
   
   int channels, sample_rate;
   unsigned long total_frames;
 
-  float* samples = drwav_open_file_and_read_pcm_frames_f32("path/to/audio.wav", &channels, &sample_rate, &total_frames, NULL);
+  float* samples = drwav_open_file_and_read_pcm_frames_f32("path/to/audio.wav", &channels, &sample_rate, &total_frames, nullptr);
   if(!samples) {
     printf("ERROR: Could not load WAV file!\n");
     return -1;
