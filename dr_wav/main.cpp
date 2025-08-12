@@ -4,12 +4,12 @@
 #include <cstdio>
 #include <cstddef>
 
-/// You can find the stb_image library at the link below: 
+/// You can find the dr_wav library at the link below: 
 ///
 /// https://github.com/mackron/dr_libs
 
 int main() {
-  /// In order to load a WAV file using drwav, you can call the function 
+  /// In order to load a WAV file using dr_wav, you can call the function 
   /// below with the specific path to the WAV file. The function will 
   /// fill a useful `drwav` struct that can be used later for reading 
   /// PCM frames.
