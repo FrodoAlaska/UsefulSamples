@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstddef>
+#include <cstdlib>
 
 /// You can find the dr_mp3 library at the link below: 
 ///

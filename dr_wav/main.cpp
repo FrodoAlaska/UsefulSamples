@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <cstddef>
+#include <cstdlib>
 
 /// You can find the dr_wav library at the link below: 
 ///
